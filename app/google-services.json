@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "973458524543",
+    "firebase_url": "https://warsaw-guide.firebaseio.com",
+    "project_id": "warsaw-guide",
+    "storage_bucket": "warsaw-guide.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973458524543:android:45dbec06f6e416ef",
+        "android_client_info": {
+          "package_name": "pl.redblue.warszawa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "973458524543-53o2om3u9vn1pb8u0kh21kf92ej04vai.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhDth-QPoJzPtaohLTVHOmY553e21YIYw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

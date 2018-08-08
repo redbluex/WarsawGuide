@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".party.SinglePartyActivity"
+    android:orientation="vertical"
+    android:background="#00004d">
+
+    <TextView
+        android:id="@+id/textsNamePart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="25sp"
+        android:textColor="#fff"/>
+
+    <TextView
+        android:id="@+id/textsDatePart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#fff"
+        android:textSize="20sp"/>
+
+    <ImageView
+        android:id="@+id/imagesPatyPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+      >
+
+        <TextView
+            android:id="@+id/textsDescriptionParty"
+            android:layout_width="420dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textColor="#fff"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            >
+
+            <TextView
+                android:id="@+id/textsAdressParty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/textsPrizeParty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:id="@+id/buttonsNavigateParty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Navigate"
+
+                android:background="#fff"
+                android:textColor="#000033"/>
+
+            <Button
+                android:id="@+id/buttonsVisitSiteParty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Visit site"
+                android:layout_marginTop="9dp"
+
+                android:background="#fff"
+                android:textColor="#000033"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
