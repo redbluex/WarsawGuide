@@ -20,24 +20,20 @@ import java.util.List;
 
 import pl.redblue.warszawa.R;
 
-public class PartyMainActivity extends AppCompatActivity implements RecyclerAdapterParty.ItemClickListener {
+public class PartyMainActivity extends AppCompatActivity implements RecyclerAdapterParty.ItemClickListener, PartyMVP.View {
 
     RecyclerView recyclerView;
     RecyclerAdapterParty recyclerAdapterParty;
-    List<Party>list;
-    DatabaseReference ref;
+    private PartyPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_main);
-        list = new ArrayList<>();
-        ref = FirebaseDatabase.getInstance().getReference().child("party");
-
-
+        presenter = new PartyPresenter(this);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerParty);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerAdapterParty = new RecyclerAdapterParty(this, list);
+        recyclerAdapterParty = new RecyclerAdapterParty(this, presenter.getParties());
         recyclerAdapterParty.setClickListener(this);
 
     }
@@ -45,34 +41,23 @@ public class PartyMainActivity extends AppCompatActivity implements RecyclerAdap
     @Override
     public void onItemClick(View view, int position) {
        Intent intent = new Intent(PartyMainActivity.this, SinglePartyActivity.class);
-       intent.putExtra("partyObject", list.get(position));
+       intent.putExtra("partyObject", presenter.getParties().get(position));
        startActivity(intent);
 }
 
     @Override
     protected void onStart() {
         super.onStart();
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot d : dataSnapshot.getChildren()){
-                    Party party = d.getValue(Party.class);
-                    list.add(party);
-                }
-                recyclerView.setAdapter(recyclerAdapterParty);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        presenter.loadFireBaseDate();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        list.clear();
+    }
+
+    @Override
+    public void setAdapterList() {
+        recyclerView.setAdapter(recyclerAdapterParty);
     }
 }
