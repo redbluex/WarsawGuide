@@ -8,5 +8,6 @@ public interface PlacesMVP {
     }
     interface Presenter{
         void loadData();
+        List<Place> getList();
     }
 }

@@ -17,28 +17,25 @@ import java.util.List;
 
 import pl.redblue.warszawa.R;
 
-public class AirportCommunication extends Fragment implements AdapterView.OnItemSelectedListener, CommunicationMVP.View{
+public class AirportCommunication extends Fragment implements AdapterView.OnItemSelectedListener, AirportMVP.View{
 
-    CommunicationPresenter presenter;
+    AirportPresenter presenter;
     TextView nameAirport, adressAirport, descriptionAirport, transportAirport, priceAirport;
-    List<Airport> list;
+    Spinner spinner;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.airportfragment_layout, container, false);
-        presenter = new CommunicationPresenter(this);
-        presenter.getAirports();
-        Spinner spinner = (Spinner)view.findViewById(R.id.spinnerAirport);
+        presenter = new AirportPresenter(this);
+        spinner = (Spinner)view.findViewById(R.id.spinnerAirport);
         nameAirport = (TextView)view.findViewById(R.id.textNameAirport);
         adressAirport = (TextView)view.findViewById(R.id.textAdressAirport);
         descriptionAirport = (TextView)view.findViewById(R.id.textDescriptionAirport);
         transportAirport = (TextView)view.findViewById(R.id.textTransport);
         priceAirport = (TextView)view.findViewById(R.id.textTransportPrice);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.airports, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        presenter.setAdapter();
         return view;
     }
 
@@ -46,11 +43,11 @@ public class AirportCommunication extends Fragment implements AdapterView.OnItem
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                nameAirport.setText(list.get(position).getNameAirport());
-                adressAirport.setText(list.get(position).getAdress());
-                descriptionAirport.setText(list.get(position).getDescription());
-                transportAirport.setText(list.get(position).getTransport());
-                priceAirport.setText(list.get(position).getTransportPrice());
+                nameAirport.setText(presenter.getAirports().get(position).getNameAirport());
+                adressAirport.setText(presenter.getAirports().get(position).getAdress());
+                descriptionAirport.setText(presenter.getAirports().get(position).getDescription());
+                transportAirport.setText(presenter.getAirports().get(position).getTransport());
+                priceAirport.setText(presenter.getAirports().get(position).getTransportPrice());
     }
 
     @Override
@@ -59,7 +56,10 @@ public class AirportCommunication extends Fragment implements AdapterView.OnItem
     }
 
     @Override
-    public void addAdapter(List list) {
-        this.list = list;
+    public void addAdapter() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.airports, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
     }
 }

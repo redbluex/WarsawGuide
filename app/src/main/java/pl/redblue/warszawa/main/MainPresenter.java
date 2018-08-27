@@ -14,7 +14,7 @@ public class MainPresenter implements MainMVP.Presenter{
 
 
     @Override
-    public List<MainMenuModel> createMenuList() {
+    public void createMenuList() {
         List<MainMenuModel> data = new ArrayList<>();
         data.add(new MainMenuModel("Transport", R.drawable.transporticon));
         data.add(new MainMenuModel("Attraction", R.drawable.zamek));
@@ -22,7 +22,7 @@ public class MainPresenter implements MainMVP.Presenter{
         data.add(new MainMenuModel("Bar", R.drawable.bar));
         data.add(new MainMenuModel("Party", R.drawable.impreza));
         data.add(new MainMenuModel("Add", R.drawable.plus));
-        return data;
+        mainMVP.setMenu(data);
     }
 
 

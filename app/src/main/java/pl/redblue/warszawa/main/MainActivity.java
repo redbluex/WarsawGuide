@@ -37,9 +37,8 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View, Men
         ButterKnife.bind(this);
         presenter = new MainPresenter(this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-        adapter = new MenuRecyclerViewAdapter(this, presenter.createMenuList());
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
+        presenter.createMenuList();
+
 
     }
 
@@ -70,5 +69,14 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View, Men
             default:
                 break;
         }
+    }
+
+
+
+    @Override
+    public void setMenu(List<MainMenuModel> list) {
+        adapter = new MenuRecyclerViewAdapter(this, list);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
     }
 }

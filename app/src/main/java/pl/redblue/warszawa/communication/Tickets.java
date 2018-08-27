@@ -19,9 +19,9 @@ import butterknife.ButterKnife;
 import pl.redblue.warszawa.R;
 
 
-public class Tickets extends Fragment implements CommunicationMVP.View {
+public class Tickets extends Fragment implements TicketMVP.View {
 
-    private CommunicationPresenter presenter;
+    private TicketPresenter presenter;
     RecyclerView recyclerView;
 
     @Nullable
@@ -29,7 +29,7 @@ public class Tickets extends Fragment implements CommunicationMVP.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tickets, container, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.ticketRecycler);
-        presenter = new CommunicationPresenter(this);
+        presenter = new TicketPresenter(this);
         presenter.getTickets();
         return view;
     }

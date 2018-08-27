@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface MainMVP{
     interface View{
-
+        void setMenu(List<MainMenuModel> list);
     }
 
     interface Presenter{
-        List<MainMenuModel> createMenuList();
+        void createMenuList();
     }
 }

@@ -28,67 +28,38 @@ import pl.redblue.warszawa.main.MainActivity;
 public class FireBaseActivity extends AppCompatActivity implements PlacesMVP.View, PlaceRecyclerAdapter.ItemClickListener {
 
     RecyclerView recyclerView;
-    private List<Place> list;
-    private DatabaseReference reference;
     ValueEventListener value;
     PlaceRecyclerAdapter adapter;
+    PlacePresenter presenter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fire_base);
-        reference = FirebaseDatabase.getInstance().getReference().child("places");
-        reference.keepSynced(true);
-        list = new ArrayList<>();
+        presenter = new PlacePresenter(this);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerPlaces);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        adapter = new PlaceRecyclerAdapter(this,list);
-        adapter.setClickListener(this);
-
     }
-
-
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        reference.addValueEventListener(new ValueEventListener(){
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                list.clear();
-
-                for(DataSnapshot s : dataSnapshot.getChildren()){
-                    Place place = s.getValue(Place.class);
-                    list.add(place);
-                }
-
-                recyclerView.setAdapter(adapter);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
+        presenter.loadData();
     }
 
     @Override
     public void addAdapter(List<Place> places) {
-
+        adapter = new PlaceRecyclerAdapter(this,places);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
     }
 
 
     @Override
     public void onItemClick(View view, int position) {
                 Intent i = new Intent(FireBaseActivity.this, SingleFullPlace.class);
-                i.putExtra("PlaceObject", list.get(position));
+                i.putExtra("PlaceObject", presenter.getList().get(position));
                 startActivity(i);
     }
 }

@@ -34,18 +34,20 @@ public class PlacePresenter implements PlacesMVP.Presenter {
                         Place place = s.getValue(Place.class);
                         list.add(place);
                     }
+
+                    viewMVP.addAdapter(list);
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
+
             };
         reference.addValueEventListener(value);
-        viewMVP.addAdapter(list);
         }
 
-
+    @Override
     public List<Place> getList() {
         return list;
     }
