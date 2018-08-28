@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "973458524543-trqqn6e83jls0vodjpb17jiemnksll7e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.redblue.warszawa",
+            "certificate_hash": "eba3749868f8f24df53f3e42c9526ebfff14c785"
+          }
+        },
+        {
+          "client_id": "973458524543-9ajscn1msrd0rg6f1ovd5pphr8vb03js.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.redblue.warszawa",
+            "certificate_hash": "cfb42a7b2edc058e9b2046a619a3cd984a6a2718"
+          }
+        },
+        {
           "client_id": "973458524543-53o2om3u9vn1pb8u0kh21kf92ej04vai.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "973458524543-53o2om3u9vn1pb8u0kh21kf92ej04vai.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

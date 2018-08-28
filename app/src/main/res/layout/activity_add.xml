@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".add.AddActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textAddAttraction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="26sp"
+        android:layout_margin="5dp"
+        android:text="@string/attraction"
+        android:onClick="addAttraction"/>
+
+    <TextView
+        android:id="@+id/textAddRestaurant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#444"
+        android:textSize="26sp"
+        android:layout_margin="5dp"
+        android:text="@string/restaurant"
+        android:onClick="addRestaurant"/>
+
+    <TextView
+        android:id="@+id/textAddBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="26sp"
+        android:layout_margin="5dp"
+        android:text="@string/bar"
+        android:onClick="addBar"/>
+
+    <TextView
+        android:id="@+id/textAddParty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#444"
+        android:textSize="26sp"
+        android:layout_margin="5dp"
+        android:text="@string/party"
+        android:onClick="addParty"/>
+
+
+</LinearLayout>

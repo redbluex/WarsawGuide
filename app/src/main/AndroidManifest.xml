@@ -30,7 +30,9 @@
         <activity android:name=".restaurant.RestaurantSingleActivity" />
         <activity android:name=".restaurant.RestaurantActivity" />
         <activity android:name=".bar.BarActivity" />
-        <activity android:name=".bar.SingleBarActivity"></activity>
+        <activity android:name=".bar.SingleBarActivity" />
+        <activity android:name=".add.AddActivity" />
+        <activity android:name=".add.addbar.AddBarActivity"></activity>
     </application>
 
 </manifest>

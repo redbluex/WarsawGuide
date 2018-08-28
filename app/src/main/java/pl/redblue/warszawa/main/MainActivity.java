@@ -15,6 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.redblue.warszawa.R;
+import pl.redblue.warszawa.add.AddActivity;
 import pl.redblue.warszawa.bar.BarActivity;
 import pl.redblue.warszawa.bar.SingleBarActivity;
 import pl.redblue.warszawa.communication.CommunicationActivity;
@@ -64,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View, Men
                 break;
             case 4:
                 intent = new Intent(MainActivity.this, PartyMainActivity.class);
+                startActivity(intent);
+                break;
+            case 5:
+                intent = new Intent(MainActivity.this, AddActivity.class);
                 startActivity(intent);
                 break;
             default:

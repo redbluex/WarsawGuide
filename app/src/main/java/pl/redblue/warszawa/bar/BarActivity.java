@@ -33,7 +33,6 @@ public class BarActivity extends AppCompatActivity implements RecyclerAdapterBar
         recyclerAdapterBar = new RecyclerAdapterBar(presenter.getBars(), this);
         recyclerAdapterBar.setItemClick(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     @Override
