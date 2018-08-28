@@ -18,21 +18,19 @@ import java.util.List;
 
 import pl.redblue.warszawa.R;
 
-public class BarActivity extends AppCompatActivity implements RecyclerAdapterBar.ItemClick {
+public class BarActivity extends AppCompatActivity implements RecyclerAdapterBar.ItemClick, BarMVP.View {
 
     private RecyclerView recyclerView;
     private RecyclerAdapterBar recyclerAdapterBar;
-    private List<Bar>bars;
-    private DatabaseReference databaseReference;
+    private BarMVP.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bar);
-        bars = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("bar");
+        presenter = new BarPresenter(this);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerBar);
-        recyclerAdapterBar = new RecyclerAdapterBar(bars, this);
+        recyclerAdapterBar = new RecyclerAdapterBar(presenter.getBars(), this);
         recyclerAdapterBar.setItemClick(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -41,30 +39,19 @@ public class BarActivity extends AppCompatActivity implements RecyclerAdapterBar
     @Override
     protected void onStart() {
         super.onStart();
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                bars.clear();
-
-                for(DataSnapshot s : dataSnapshot.getChildren()){
-                    Bar bar = s.getValue(Bar.class);
-                    bars.add(bar);
-                }
-                recyclerView.setAdapter(recyclerAdapterBar);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        presenter.loadFireBaseDate();
     }
 
     @Override
     public void onItemClick(View view, int position) {
-        Bar bar = bars.get(position);
+        Bar bar = presenter.getBars().get(position);
         Intent i = new Intent(BarActivity.this, SingleBarActivity.class);
         i.putExtra("barObject", bar);
         startActivity(i);
+    }
+
+    @Override
+    public void addAdapter() {
+        recyclerView.setAdapter(recyclerAdapterBar);
     }
 }
