@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -26,6 +28,7 @@ import java.util.UUID;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pl.redblue.warszawa.R;
+import pl.redblue.warszawa.main.MainActivity;
 import pl.redblue.warszawa.party.Party;
 
 public class AddPartyActivity extends AppCompatActivity {
@@ -54,6 +57,10 @@ public class AddPartyActivity extends AppCompatActivity {
     @BindView(R.id.buttonAddPartyAccept)
     Button buttonPartyAccept;
 
+    private DatabaseReference myRef;
+    private Uri downloadUrl;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,21 +68,42 @@ public class AddPartyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_party);
         ButterKnife.bind(this);
         party = new Party();
+        myRef = FirebaseDatabase.getInstance().getReference("party");
         mStorageRef = FirebaseStorage.getInstance().getReference();
         buttonPartyAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                party.setNameParty(partyName.getText().toString());
-                party.setAdressParty(partyAddress.getText().toString());
-                String myOwnDate = partyDay.getText().toString()+"."+
-                        partyMonth.getText().toString()+"."+
-                        partyYear.getText().toString()+" , "+
-                        partyHours.getText().toString()+":"+
-                        partyMinutes.getText().toString();
-                party.setDateParty(myOwnDate);
-                party.setPrizeParty(partyPrice.getText().toString());
+                setAllFields();
+                if(party.getPhotoParty()==null){
+                    party.setPhotoParty("");
+                }
+                myRef.child(party.getIdParty()).setValue(party);
+                Intent i = new Intent(AddPartyActivity.this, MainActivity.class);
+                startActivity(i);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    public void setAllFields(){
+        party.setNameParty(partyName.getText().toString());
+        party.setAdressParty(partyAddress.getText().toString());
+        String myOwnDate = partyDay.getText().toString()+"."+
+                partyMonth.getText().toString()+"."+
+                partyYear.getText().toString()+" , "+
+                partyHours.getText().toString()+":"+
+                partyMinutes.getText().toString();
+        party.setDateParty(myOwnDate);
+        party.setPrizeParty(partyPrice.getText().toString());
+        party.setDescriptionParty(partyDescription.getText().toString());
+        String idParty = myRef.push().getKey();
+        party.setIdParty(idParty);
+        party.setUriParty("");
+        party.setPhotoParty(downloadUrl.toString());
     }
 
     public void addImageParty(View view) {
@@ -95,8 +123,7 @@ public class AddPartyActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                                party.setPhotoParty(downloadUrl.toString());
+                                downloadUrl = taskSnapshot.getDownloadUrl();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
