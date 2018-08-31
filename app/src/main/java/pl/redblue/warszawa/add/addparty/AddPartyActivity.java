@@ -56,9 +56,12 @@ public class AddPartyActivity extends AppCompatActivity {
     EditText partyDescription;
     @BindView(R.id.buttonAddPartyAccept)
     Button buttonPartyAccept;
+    @BindView(R.id.buttonAddPartyImage)
+    Button buttonPartyImage;
 
     private DatabaseReference myRef;
     private Uri downloadUrl;
+    StorageReference imgRef;
 
 
 
@@ -70,23 +73,31 @@ public class AddPartyActivity extends AppCompatActivity {
         party = new Party();
         myRef = FirebaseDatabase.getInstance().getReference("party");
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        imgRef = mStorageRef.child("images/"+ UUID.randomUUID().toString());
+        buttonPartyAccept.setEnabled(false);
+        buttonPartyImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addImageParty();
+            }
+        });
         buttonPartyAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setAllFields();
-                if(party.getPhotoParty()==null){
-                    party.setPhotoParty("");
-                }
                 myRef.child(party.getIdParty()).setValue(party);
                 Intent i = new Intent(AddPartyActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
     }
 
     public void setAllFields(){
@@ -103,10 +114,9 @@ public class AddPartyActivity extends AppCompatActivity {
         String idParty = myRef.push().getKey();
         party.setIdParty(idParty);
         party.setUriParty("");
-        party.setPhotoParty(downloadUrl.toString());
     }
 
-    public void addImageParty(View view) {
+    public void addImageParty() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -118,12 +128,14 @@ public class AddPartyActivity extends AppCompatActivity {
         if(resultCode!=RESULT_CANCELED){
             if(requestCode==1){
                 filePath =  data.getData();
-                StorageReference imgRef = mStorageRef.child("images/"+ UUID.randomUUID().toString());
                 imgRef.putFile(filePath)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 downloadUrl = taskSnapshot.getDownloadUrl();
+                                party.setPhotoParty(downloadUrl.toString());
+                                buttonPartyAccept.setEnabled(true);
+                                Toast.makeText(getApplicationContext(), "Uploaded Photo!", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

@@ -118,13 +118,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_image"
-        android:onClick="addImageParty"/>
+        />
 
     <Button
         android:id="@+id/buttonAddPartyAccept"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add" />
+
 
 
 </LinearLayout>

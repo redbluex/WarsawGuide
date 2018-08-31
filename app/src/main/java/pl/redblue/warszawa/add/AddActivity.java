@@ -8,6 +8,7 @@ import android.view.View;
 import pl.redblue.warszawa.R;
 import pl.redblue.warszawa.add.addbar.AddBarActivity;
 import pl.redblue.warszawa.add.addparty.AddPartyActivity;
+import pl.redblue.warszawa.add.addrestaurant.AddRestaurantActivity;
 
 public class AddActivity extends AppCompatActivity {
 
@@ -22,7 +23,8 @@ public class AddActivity extends AppCompatActivity {
     }
 
     public void addRestaurant(View view) {
-
+        Intent i = new Intent(AddActivity.this, AddRestaurantActivity.class);
+        startActivity(i);
     }
 
     public void addBar(View view) {
