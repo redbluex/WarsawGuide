@@ -35,7 +35,8 @@
         <activity android:name=".add.AddActivity" />
         <activity android:name=".add.addbar.AddBarActivity" />
         <activity android:name=".add.addparty.AddPartyActivity" />
-        <activity android:name=".add.addrestaurant.AddRestaurantActivity"></activity>
+        <activity android:name=".add.addrestaurant.AddRestaurantActivity" />
+        <activity android:name=".add.places.AddPlacesActivity"></activity>
     </application>
 
 </manifest>
