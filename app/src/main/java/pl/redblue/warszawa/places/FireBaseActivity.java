@@ -62,4 +62,6 @@ public class FireBaseActivity extends AppCompatActivity implements PlacesMVP.Vie
                 i.putExtra("PlaceObject", presenter.getList().get(position));
                 startActivity(i);
     }
+
+
 }

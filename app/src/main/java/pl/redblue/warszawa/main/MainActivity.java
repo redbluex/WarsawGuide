@@ -1,10 +1,15 @@
 package pl.redblue.warszawa.main;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -26,6 +31,8 @@ import pl.redblue.warszawa.restaurant.RestaurantActivity;
 
 public class MainActivity extends AppCompatActivity implements MainMVP.View, MenuRecyclerViewAdapter.ItemClickListener {
 
+    private static final String TAG = "permissionMsg";
+    private static final int RECORD_REQUEST_CODE = 101;
     private MainMVP.Presenter presenter;
     @BindView(R.id.recyclerMain)
     RecyclerView recyclerView;
@@ -35,6 +42,17 @@ public class MainActivity extends AppCompatActivity implements MainMVP.View, Men
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        int permission = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            Log.i(TAG, "Permission to external storage denied");
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    RECORD_REQUEST_CODE);
+        }
+
         ButterKnife.bind(this);
         presenter = new MainPresenter(this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));

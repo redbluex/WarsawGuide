@@ -44,6 +44,7 @@ public class SingleFullPlace extends AppCompatActivity {
         buttonNavigate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Uri location = Uri.parse(place.getUriPlace());
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
                 startActivity(mapIntent);

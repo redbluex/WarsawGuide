@@ -127,7 +127,7 @@ public class AddPlacesActivity extends AppCompatActivity {
         place.setIdPlace(id);
         place.setName(placeName.getText().toString());
         place.setAdress(placeAddress.getText().toString());
-        place.setUriPlace("-");
+        place.setUriPlace("geo:0,0?q="+place.getAdress());
     }
 
 
